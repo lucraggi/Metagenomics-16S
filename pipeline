@@ -23,8 +23,13 @@ $for i in $(cat names.file); do (cd $i &&  prinseq++ -min_qual_mean 28 -trim_rig
 ##Create a file with sequences names:
 $ls *R1.fastq.gz | sed 's/_R1.fastq.gz//' > names.file
 
-##To assamble use flash program (Magoc & Salzberg, 2011):
+##To assamble use flash program (Magoc & Salzberg, 2011) and stay with flash_out.extendedFrags.fasta
 #example:
 $for i in $(cat names.file); do (cd $i && flash -r 145 -f 195 -s 50 -t 4 -o flash_out *R1_001.fastq.gz *R2_001.fastq.gz > flash.log); done
+
+##To be able to track sequences we mofified headers with modifHeaderSimpleSample.pl
+##example:
+for i in $(cat names.file); do (modifHeaderSimpleSample.pl $i); done
+
 
 
