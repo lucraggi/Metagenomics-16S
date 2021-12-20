@@ -27,9 +27,12 @@ $ls *R1.fastq.gz | sed 's/_R1.fastq.gz//' > names.file
 #example:
 $for i in $(cat names.file); do (cd $i && flash -r 145 -f 195 -s 50 -t 4 -o flash_out *R1_001.fastq.gz *R2_001.fastq.gz > flash.log); done
 
-##To be able to track sequences we mofified headers with modifHeaderSimpleSample.pl
+##To be able to track sequences mofify headers with modifHeaderSimpleSample.pl
 ##example:
 for i in $(cat names.file); do (modifHeaderSimpleSample.pl $i); done
 
+##To dereplicate, eliminate chimeras, and clusterizing to OTUs with Vsearch use options: --derep_fulllength, --uchime_denovo, --cluster_fast --id 0.97
+
+##To eliminate singletons use singletones_filter.pl over the generated VSEARCH OTU table
 
 
