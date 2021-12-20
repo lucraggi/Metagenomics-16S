@@ -1,5 +1,6 @@
-This pipeline was created and documented by Alejandra Escobar, PhD, and then trasnlated by Luciana Raggi, PhD
+This pipeline was created and documented by Alejandra Escobar, PhD, and then translated by Luciana Raggi, PhD
 It is a pipeline to analyze 16S rRNA gene (normally a variable region) sequences from Illumina sequences.
+All mentiones scripts are in this same repository.
 
 #########################################################################################
 
@@ -34,5 +35,7 @@ for i in $(cat names.file); do (modifHeaderSimpleSample.pl $i); done
 ##To dereplicate, eliminate chimeras, and clusterizing to OTUs with Vsearch use options: --derep_fulllength, --uchime_denovo, --cluster_fast --id 0.97
 
 ##To eliminate singletons use singletones_filter.pl over the generated VSEARCH OTU table
+
+##To normalize OTU table for beta diversity analysis use MetagenomeSeq () and normal_otumatrix.R script.
 
 
