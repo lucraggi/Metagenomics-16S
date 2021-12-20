@@ -1,0 +1,30 @@
+This pipeline was created and documented by Alejandra Escobar, PhD, and then trasnlated by Luciana Raggi, PhD
+It is a pipeline to analyze 16S rRNA gene (normally a variable region) sequences from Illumina sequences.
+
+#########################################################################################
+
+##Check sequences with basic_stats.pl:
+
+## Create files_list.txt with raw sequences names.
+#example:
+$ ls *R1.fastq.gz > R1.file
+$ ls *R2.fastq.gz > R2.file
+$ paste R1.file R2.file > files_list.txt
+$ rm R1.file R2.file
+
+##Run script basic_stats.pl over the *.fastq sequences.
+#example:
+$ basic_stats.pl files_list.txt
+
+##If bad quality, check sequences with FastQC and clean with prinseq++ (Schmieder R and Edwards R, 2011; https://github.com/Adrian-Cantu/PRINSEQ-plus-plus):
+#example:
+$for i in $(cat names.file); do (cd $i &&  prinseq++ -min_qual_mean 28 -trim_right 20 -trim_left 10 -fastq *\_L001_R1_001.fastq.gz -fastq2 *\_L001_R2_001.fastq.gz -out_good $i\_clean); done
+
+##Create a file with sequences names:
+$ls *R1.fastq.gz | sed 's/_R1.fastq.gz//' > names.file
+
+##To assamble use flash program (Magoc & Salzberg, 2011):
+#example:
+$for i in $(cat names.file); do (cd $i && flash -r 145 -f 195 -s 50 -t 4 -o flash_out *R1_001.fastq.gz *R2_001.fastq.gz > flash.log); done
+
+
